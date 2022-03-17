@@ -21,4 +21,11 @@ class Boat {
     image(this.image, 0, this.boatPosition, this.width, this.height);
     pop();
   }
+  remove (index){
+// funcao loop de tempo
+    setTimeout(()=>{
+      Matter.World.remove(word,boats[index].body);
+      delete boats [index] 
+    },1000);
+}
 }
