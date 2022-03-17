@@ -51,6 +51,7 @@ function draw() {
 
   for (var i = 0; i < balls.length; i++) {
     showCannonBalls(balls[i], i);
+    collisionwithboat(i)
   }
 
   cannon.display();
@@ -68,6 +69,10 @@ function keyPressed() {
 function showCannonBalls(ball, index) {
   if (ball) {
     ball.display();
+    if(ball.body.position.x >= width || ball.body.position.y >=height-50){ 
+  ball.remove(index);
+
+    }
   }
 }
 
@@ -90,7 +95,7 @@ function showBoats() {
           x: -0.9,
           y: 0
         });
-
+        
         boats[i].display();
       } 
     }
@@ -105,3 +110,23 @@ function keyReleased() {
     balls[balls.length - 1].shoot();
   }
 }
+//1 criar funçao que verifiva se a bola de canhao tocou no navio 
+function collisionwithboat (index) {
+
+//2 loop que rereconhece a largura do navio 
+for (var i=0;i<boats.length;i++) {
+  if (balls[index]!==undefined && boats[i] !== undefined) {
+
+
+var collision=Matter.SAT.collides(balls[index].body,boats[i].body);
+if(collision.collided) {
+ boats[i].remove(i);
+Matter.World.remove(wolrd,balls[index].body);
+delete balls[index];
+}
+  }
+}
+
+}
+
+
